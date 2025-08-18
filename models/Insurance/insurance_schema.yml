@@ -1,0 +1,11 @@
+version: 2
+sources:
+  - name: raw
+    database: INSURANCE_DB
+    schema: RAW
+    tables:
+      - name: customers_raw
+      - name: policies_raw
+      - name: claims_raw
+      - name: policy_vehicles_raw
+      - name: policy_properties_raw
