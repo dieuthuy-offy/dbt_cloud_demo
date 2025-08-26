@@ -5,23 +5,23 @@ with src as (
 ),
 clean as (
     select
-        trim(policy_id)                                                as policy_id,
-        trim(customer_id)                                              as customer_id,
-        initcap(trim(policy_type))                                     as policy_type,   -- Auto/Home
-        upper(trim(state))                                             as state,
-        try_to_date(effective_date)                                    as effective_date,
-        try_to_date(expiration_date)                                   as expiration_date,
-        initcap(trim(status))                                          as status,
-        initcap(trim(sales_channel))                                   as sales_channel,
-        CAST(ROUND(annual_premium, 2) AS NUMBER(38,2)) AS annual_premium,
-        CAST(ROUND(deductible, 2)     AS NUMBER(38,2)) AS deductible,
-        CAST(ROUND(coverage_limit, 0) AS NUMBER(38,0)) AS coverage_limit,
-        CAST(ROUND(risk_score, 0)     AS NUMBER(38,0)) AS risk_score,
+        trim(policy_id) as policy_id,
+        trim(customer_id) as customer_id,
+        initcap(trim(policy_type)) as policy_type,  
+        upper(trim(state)) as state,
+        try_to_date(effective_date) as effective_date,
+        try_to_date(expiration_date) as expiration_date,
+        initcap(trim(status))  as status,
+        initcap(trim(sales_channel)) as sales_channel,
+        CAST(ROUND(annual_premium, 2) as NUMBER(38,2)) as annual_premium,
+        CAST(ROUND(deductible, 2) as NUMBER(38,2)) as deductible,
+        CAST(ROUND(coverage_limit, 0) as NUMBER(38,0)) as coverage_limit,
+        CAST(ROUND(risk_score, 0) as NUMBER(38,0)) as risk_score,
         datediff(day, try_to_date(effective_date), try_to_date(expiration_date)) as policy_term_days,
         case
             when current_date() between try_to_date(effective_date) and try_to_date(expiration_date) then true
             else false
-        end                                                            as is_active
+        end as is_active
     from src
 ),
 dedup as (

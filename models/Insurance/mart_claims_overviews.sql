@@ -16,14 +16,14 @@ joined as (
         c.policy_id,
 
         p.customer_id,
-        cust.full_name                              as customer_name,
-        cust.state                                   as customer_state,
+        cust.full_name as customer_name,
+        cust.state as customer_state,
 
         p.policy_type,
-        p.state                                      as policy_state,
+        p.state as policy_state,
         p.effective_date,
         p.expiration_date,
-        p.status                                     as policy_status,
+        p.status as policy_status,
         p.annual_premium,
         p.deductible,
         p.coverage_limit,
@@ -35,7 +35,7 @@ joined as (
         c.claim_amount,
         c.paid_amount,
         c.paid_ratio,
-        c.status                                     as claim_status,
+        c.status as claim_status,
         c.claim_date,
         c.reported_date,
         c.closed_date,
@@ -51,8 +51,8 @@ joined as (
         pr.estimated_value
     from claims c
     join policies p on p.policy_id = c.policy_id
-    join cust     on cust.customer_id = p.customer_id
-    left join veh v  on v.policy_id  = p.policy_id and p.policy_type = 'Auto'
+    join cust on cust.customer_id = p.customer_id
+    left join veh v on v.policy_id  = p.policy_id and p.policy_type = 'Auto'
     left join prop pr on pr.policy_id = p.policy_id and p.policy_type = 'Home'
 )
 select * from joined
